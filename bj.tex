@@ -1,0 +1,761 @@
+\documentclass[12pt,aps,preprint,nofootinbib,noshowkeys,noshowpacs,longbibliography,superscriptaddress,tightenlines]{revtex4-2}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+%\usepackage{showkeys}
+\usepackage{graphics,graphicx}
+\usepackage[inline]{enumitem}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{color}
+\definecolor{darkblue}{RGB}{0,0,196}
+\definecolor{darkgreen}{RGB}{0,120,0}
+%\usepackage{cancel}
+% \usepackage{caption}
+%\usepackage{bbold}
+%\usepackage{subfigure}
+%\usepackage{stix}
+%\usepackage{multirow}
+%\usepackage{longtable}
+%\usepackage{color}
+%\usepackage[normalem]{ulem}
+%\usepackage{hyperref}
+%\usepackage{authblk}
+%\usepackage{bigints}
+%\usepackage{xparse}
+%\usepackage{physics}
+%\usepackage{verbatim}
+%\usepackage{minibox}
+%\usepackage{comment}
+%\usepackage{appendix}
+%%%\usepackage[inline]{showlabels}
+%\usepackage{scalerel}
+%\usepackage{marginnote}
+%\usepackage{graphicx}
+%\usepackage[nice]{nicefrac}
+%\usepackage{soul}
+\newcommand{\mathcolorbox}[2]{\colorbox{#1}{$\displaystyle #2$}}
+\newcommand{\hlfancy}[2]{\sethlcolor{#1}\hl{#2}}
+% -- highlighting
+\usepackage{stackengine}
+\renewcommand\useanchorwidth{T}
+\newcommand\oU[1]{\ensurestackMath{\stackon[1pt]{#1}{\mkern2mu\bullet}}}
+\newcommand\oX[1]{\ensurestackMath{\stackon[1pt]{#1}{\mkern2mu\star}}}
+\newcommand\oY[1]{\ensurestackMath{\stackon[1pt]{#1}{\mkern2mu\smwhitestar}}}
+\newcommand\oZ[1]{\ensurestackMath{\stackon[1pt]{#1}{\mkern2mu\scaleto{\circ}{3pt}}}}
+\renewcommand\S{\mathcal S}
+\newcommand\Sstress{{\mathcal S}}
+\renewcommand\P{\mathcal P}
+\newcommand\N{\mathcal N}
+\def\half{\tfrac{1}{2}}
+\def\quarter{\tfrac{1}{4}}
+\def\LF{{\scriptscriptstyle LF}}
+\newcommand{\ubeta}{{\underline{\smash{\beta}}}}
+\newcommand{\uf}{{\underline{{f}}}}
+\newcommand{\uu}{{\underline{u}}}
+\def\pp{{\mathfrak p}}
+\def\three{{}^{(3)}}
+\def\bb{{(b)}}
+\def\x{{\bm x}}
+\def\p{{\bm p}}
+\def\edense{{\mathcal{E}}}
+\def\pdense{M}
+\def\dpdense{\delta\kern-0.08em M}
+\def\dbeta{\delta\kern-0.08em \beta}
+\def\CChi{ {\mathcal \chi}}
+\def\HP{\hphantom{\alpha}} % horizontal
+\def\llangle{\left\langle}
+\def\rrangle{\right\rangle}
+\newcommand{\nn}{\nonumber}
+\newcommand{\rl}{\mathrm{rel}}
+\newcommand{\tbj}{\tau}
+\newcommand{\vecxp}{\vec{x}_\perp}
+\def\muh{\hat\mu}
+\def\vh{\hat v}
+\def\noisekernel{{\kappa}}
+\def\Eq#1{eq.~(\ref{#1})}
+\def\Eqs#1{eqs.~(\ref{#1})}
+\def\eq#1{(\ref{#1})}
+\def\app#1{App.~\ref{#1}}
+\def\Fig#1{Fig.~\ref{#1}}
+\def\Figs#1{Figs.~\ref{#1}}
+\def\Sect#1{Sect.~\ref{#1}}
+\def\Ref#1{Ref.~\cite{#1}}
+
+
+% equation environments  
+\def\P{\mathcal P}
+\def\beq{\begin{equation}}
+\def\eeq{\end{equation}}
+\def\st{\begin{equation}}
+\def\stp{\end{equation}}
+\def\ba{\begin{eqnarray}}
+\def\ea{\end{eqnarray}}   
+\def\DD{{\mathcal L}}
+\def\vDD{{\mathcal L}}
+\newcommand\vbeta{{\vec{\beta}}}
+\newcommand\vcovD{D}
+\newcommand\Chi{\mathcal X}
+\newcommand\covD{\nabla}
+\newcommand{\ve}[2]{e_{\;\,#1}^{#2}}
+\newcommand{\de}[2]{e_{\;\,#2}^{#1}}
+\newcommand{\vp}{{\vec{p}\,}}
+\newcommand{\petsc}{{\tt PETsc}}
+
+\def\dd{{\rm d}}
+\def\lps{{N}}
+\def\sp{\phantom{j}}
+\def\spm{\phantom{\mu}}
+\def\sft{\vec{N}}
+\def\tideal{{\mathcal T}}
+\def\tvisc{\Pi}
+\def\btvisc{\bar{\Pi}}
+\newcommand\ph{\phantom{\nu}}
+
+\newcommand\V{V_0}
+\newcommand\dtau{{{\Delta}\tau}}
+\newcommand\dt{{{\Delta}t}}
+\def\Kd{{K}}
+
+%\usepackage{showkeys}
+\def\bb1{{(1)}}
+\def\bbt{{(2)}}
+\def\bbth{{(3)}}
+
+\newcommand{\AM}[1]{{\color{green}AM: #1}}
+
+\newcommand{\cmtJF}[1]{{\color{blue}JF: #1}}
+\newcommand{\rs}[1]{{\color{red}RS: #1}}
+\newcommand{\cmtMS}[1]{{\color{cyan}MS: #1}}
+
+\newcommand{\gammathree}{{}^{(3)}\Gamma}
+\usepackage[colorlinks=true,linktocpage=true,linkcolor=darkblue,citecolor=red,urlcolor=darkblue]{hyperref}
+
+\renewcommand{\baselinestretch}{1.05}
+
+\begin{document}
+\preprint{}
+ 
+\title{Relativistic Viscous Hydrodynamics in the Density Frame: Numerical Tests and Comparisons}
+
+\section{Introduction} 
+
+%
+% which is truly first order in time and has non-hydrodynamic modes.  
+
+\section{The Density Frame and viscous hydrodynamics}
+\label{sec:densityframe}
+
+Let's consider a special case of Bjorken Flow, with a non-zero $\beta_x(\tau, x)$.
+The evolution variables are the energy and momentum densities 
+\st
+( T^{\tau\tau},  T^{\tau x} ) \equiv (\edense , \pdense^x)\,.
+\stp
+% The specification of $T^{xx}$ is implemented with an intermediate set of parameters,  $\beta_{\mu} = \beta u_{\mu}$, which describe the inverse temperature and four velocity.  
+In ideal hydrodynamics, the stress tensor  has 
+the functional form
+\st
+\tideal^{\mu\nu}(\beta) \equiv \left(e(\beta) + p(\beta)\right)  u^{\mu} u^{\nu} + p(\beta) g^{\mu\nu} \, , 
+\stp
+where 
+\st
+   ds^2 = - \dd\tau^2 + (\dd x^2 + \dd y^2 + \tau^2 \dd\eta^2)
+\stp
+This equation means  that $\beta_{\mu}$ is determined from the energy and momentum densities:
+\begin{subequations}
+  \label{eq:densityframedef}
+\begin{align}
+  \edense =& \tideal^{\tau\tau}(\beta) \, , \\
+  \pdense^x =& \tideal^{\tau x}(\beta)  \,  , 
+\end{align}
+\end{subequations}
+and subsequently $\beta_{\mu}$ is used to specify the spatial stress. 
+
+The spatial stress tensor  receives viscous corrections
+\st
+ T^{ij} = \tideal^{ij}(\beta) + \Pi^{ij}
+\stp
+
+In Bjorken coordinates with only $x$ dependence we have
+the evolution equations from our paper:
+\begin{subequations}
+  \st
+  \boxed{
+  \partial_\tau (\tau \edense) + \partial_x (\tau \pdense^x) =  -  \left(p  + \tau^2\Pi^{\eta \eta} \right)  \,, \label{eq:equation} \\
+}
+  \stp
+  and the momentum equation
+  \st
+  \boxed{
+  \partial_\tau (\tau \pdense^x) + \partial_x (\tau (\tideal^{xx} + \Pi^{xx})) = 0 \,.
+}
+  \stp
+\end{subequations}
+Here the leading minus  on the rhs of the energy equation etc follows from the general form
+\st
+-  \left(p  + \tau^2\Pi^{\eta \eta} \right) = \sqrt{h} \left(\frac{K_{\eta\eta}}{\tau^2} \right)  \, \tau^2T^{\eta\eta} 
+\stp
+$K_{\eta\eta} =  -\tau$ is the extrinsic curvature of the foliation of space time and $\sqrt{h} = \tau$ is the volume element of the spatial matric.
+
+
+
+In the Density Frame the algebraic relations in \Eq{eq:densityframedef} define $\beta_{\mu}(x)$ to all orders in the derivative expansion, but corrections arrise order by order in gradients.
+The viscous stress tensor  is
+\st
+ T^{ij} = \tideal^{ij} + \Pi^{ij}
+\stp
+The shear strain in Bjorken coordinates is 
+\st
+\Pi^{ij} = - T\kappa^{ijmn} \left( \partial_m \beta_n - \beta^{\tau} K_{mn} \right)
+\stp
+where the last term  is the extrinsic curvature, whose only non-zero component is
+\st
+  -\frac{1}{\tau^2 }K_{\eta\eta} =  \frac{1}{\tau}
+\stp
+The tensor 
+  $T\kappa^{ijmn}$
+has the non-zero components:
+\st
+\left\{ \kappa^{xxxx}, \tau^2 \kappa^{xx\eta\eta} , \tau^4 \kappa^{\eta\eta \eta\eta} \right\} =  \eta \left\{\frac{4 }{3 \gamma^4 \left(1- c^2
+    v^2\right)^2},-\frac{2  \left(1 -3
+    c^2 v^2\right)}{3  \gamma^2 \left(1- c^2
+    v^2\right)^2},
+    \frac{4 \left(3 c^4 v^4-3 c^2
+    v^2+1\right)}{3 \left(1 - c^2 v^2\right)^2}\right\}
+\stp
+as well as some others which do not contribute to $T^{\eta\eta}$ or the net force $\partial_j \Pi^{ij}$. 
+$T^{xx}$ and $T^{\eta\eta}$ receive viscous corrections of order $\partial_x\beta_x$ and $\tau^2 K_{\eta\eta}$. 
+We have the $xx$ component
+\st
+\Pi^{xx} \equiv  - T\noisekernel^{xxxx} \,  \partial_{(x}\beta_{x)}  - T \tau^2 \noisekernel^{xx\eta\eta} \; \frac{\beta^\tau }{\tau}  \, , 
+\stp
+and the $\eta\eta$ component
+\st
+\tau^2 \Pi^{\eta\eta} \equiv  - T \tau^2\noisekernel^{\eta\eta x x} \, \partial_{(x}\beta_{x)}  - T  \tau^4 \noisekernel^{\eta\eta\eta\eta} \; \frac{\beta^\tau}{\tau} \, , 
+\stp
+
+We   simplify  terms in these expressions 
+\begin{align}
+\label{eq:noisekernelintro}
+\noisekernel^{xxxx} =&     \frac{1}{(1 -c_s^2 v^2)^2 \gamma^4}   \,  \left( \frac{4\eta}{3}  + \zeta \right)    \,. \\
+\tau^2\noisekernel^{xx\eta\eta} =&   \frac{1}{(1 - c_s^2 v^2)^2 \gamma^2}  \left(   -  \frac{2\eta}{3} (1 - 3 c_s^2 v^2)  +  \zeta \right) \,. \\
+\tau^4\noisekernel^{\eta\eta\eta\eta} =&   \frac{1}{(1- c_s^2 v^2)^2} \,   \left( \eta (1 - c_s^2 v^2)^2 + \frac{\eta}{3} (1 - 3 c_s^2 v^2)^2  + \zeta  \right)\, .
+\end{align}
+Here $\gamma =1/\sqrt{1-v^2}$  and $c_s^2 = dp/de$ and we have neglected the bulk viscosity. 
+Neglecting bulk viscosity the determinant of the matrix is positive definite  
+\st
+\noisekernel^{xxxx} \noisekernel^{\eta\eta\eta\eta} - (\noisekernel^{\eta\eta xx})^2 = \frac{1}{(1 - c_s^2 v^2)^2 \gamma^4}   \left(\frac{4}{3} \eta^2  \right)
+\stp
+
+
+Using the equation of motion it is easy to evaluate entropy 
+\st
+dS = \beta^\tau d\edense  - \beta_x d\pdense^x
+\stp
+Explicitly evaluating
+\st
+\beta^{\tau} \left(\partial_\tau (\tau \edense)  + \ldots \right)  -\beta_x \left( \partial_\tau(\tau \pdense^x)  + \ldots \right) 
+\stp
+we find that
+\st
+\partial_\tau( \tau S)  + \partial_x (\tau S v^x - \tau \beta_x \Pi^{xx}) =  \tau 
+\begin{pmatrix}
+  \partial_x \beta_x   &   \frac{\beta^\tau }{\tau}   
+\end{pmatrix}
+\begin{pmatrix}
+  T\kappa^{xxxx}  &  T \tau^2\kappa^{xx\eta\eta} \\
+  T\tau^2 \kappa^{\eta\eta xx} & T \tau^4 \kappa^{\eta\eta\eta\eta} 
+\end{pmatrix}
+\begin{pmatrix}
+  \partial_x \beta_x   \\    \frac{\beta^\tau }{\tau}   
+\end{pmatrix}
+\stp
+
+
+% However,  $\delta \beta_{\mu}$ enters into the spatial stress, $T^{xx} =\tideal^{xx}(\beta+\delta\beta) + \underline{\Pi}^{xx}$. 
+% Expanding $\tideal^{xx}(\beta + \delta \beta)$ to first order,  and using the ideal equations of motion
+% % , e.g.  
+% % \st
+% %   \partial_{\mu} \beta^{\mu} \simeq  \frac{1}{\gamma^2}  \frac{1}{(1 - c_s^2 v^2)  }   \partial_x\beta_x
+% % \stp
+% to replace the time derivatives in \eqref{eq:Landaustress} with spatial derivatives  produces \eq{eq:txx1d} with $\kappa^{xxxx}(v)$ defined in \eqref{eq:noisekernelintro}.  These steps are detailed in \app{app:dfdetails}. 
+
+% Next we will analyze entropy production using the Density Frame equations of motion. The entropy current in ideal hydrodynamics  is 
+% \st
+%  S^\mu= (S, S v^x) = s(\beta) u^\mu \, , 
+% \stp
+% where the intermediate parameters $\beta_{\mu}$ are defined by \eqref{eq:densityframedef}.  This definition of $S\equiv s(\beta) u^0$ (with $\beta_\mu$ defined by $\edense$ and $\pdense$) remains valid in the Density Frame, but the spatial current is modified.  Using the equations of motion it is easy to show  that
+% \st
+% \partial_t S + \partial_x (S v^x - \beta_x \Pi^{xx})  =  \kappa^{xxxx}(v) \left(\partial_x\beta_x\right)^2 \, .
+% \stp
+% Thus,  it is important that $\kappa^{xxxx}(v)$ in \eqref{eq:noisekernelintro} is a non-negative constant. 
+
+% In our companion paper we present the equations of motion in  3+1D including the shear and bulk viscosities~\cite{TheoryPaper}.
+% % \cmtJF{I know it is already said in the introduction, but should we remind people that a full 3+1D discussion is in the other paper?}
+
+
+\section{Numerical tests in 1+1 dimensions}
+\label{sec:numerics}
+
+\subsection{Overview}
+\label{sec:numericsoverview}
+We will use operator splitting together with an Implicit-Explicit (IMEX) time integrators~\cite{ASCHER1997151,Pareschi2005,Constantinescu} to
+evolve the system. The variables
+are denoted generically\footnote{For clarity, we will drop the directional superscript in this section,  $\pdense \equiv \pdense^x$.  } $V \equiv(\edense, \pdense)$ and evolve schematically as
+\st
+  \dot V = f(V) + g(V)\,,
+\stp
+where $f(V)$ and $g(V)$ represent the ideal and viscous hydrodynamic evolution respectively.
+The ideal evolution $f(V)$ is strongly non-linear and will be treated explicitly, while the viscous evolution $g(V)$ will be 
+treated implicitly.
+
+In the explicit step, $\dot V = f(V)$,  the variables are evolved over
+a time interval $\Delta \tau$ using the equations of motion:
+\begin{align}
+  \partial_\tau \edense + \partial_x \pdense =& - \frac{\edense + p(\beta) }{\tau}\, ,   \\
+    \partial_\tau \pdense + \partial_x \tideal^{xx}(\beta) =& - \pdense/\tau \, . 
+\end{align}
+For the explicit step we use a standard Kurganov-Tadmor (KT) scheme of ideal hydrodynamics~\cite{KTScheme,KTAstro,Schenke}.
+A few further details are given in App~\ref{app:numericaldetails}.
+
+% When viscous term are added we have
+% \begin{align}
+% \partial_\tau \edense  =& -  \frac{1}{\tau} \, \tau^2 \Pi^{\eta\eta} \, ,   \\
+% \partial_\tau \pdense  =&  \partial_{x}(\kappa^{xx\eta\eta} \, \frac{\beta^{\tau}}{\tau})
+% \end{align}
+
+
+In the implicit step, $\dot V = g(V)$, the variables are  evolved using the viscous equations of motion:
+\begin{subequations}
+\begin{align}
+  \partial_\tau \edense =&  +  K_{\eta\eta} \Pi^{\eta\eta} \, ,   \\
+  \partial_\tau \pdense =&  - \partial_x \tvisc^{xx} 
+\end{align}
+\end{subequations}
+We have the follwoing
+\st
+K_{\eta\eta} = -\tau    \qquad  K_{\eta\eta} \Pi^{\eta\eta} =  - \frac{1}{\tau} (\tau^2 \Pi^{\eta\eta})
+\stp 
+% Implicit-Explicit (IMEX) time integrators are natural here, and as discussed further 
+% below we have found that the extrapolated IMEX schemes of \cite{} as implemented in
+% the $\petsc$ library are very effective.
+% Let us discuss the implicit step in greater detail. 
+% Let us notate $V \equiv (\edense, \pdense)$
+% as variables on the lattice,  and make the abbreviation $\kappa \equiv \kappa^{xxxx}$.
+Abbreviating $\kappa^{xx} \equiv T\kappa^{xxxx}$, $\kappa^{x\eta} =\kappa^{\eta x} = T \tau^2 \kappa^{xx\eta\eta}$, and $\kappa^{\eta\eta} =   T \tau^4 \kappa^{\eta\eta\eta\eta} $  to avoid clutter, 
+a fully implicit  step  consists  of solving the non-linear equations
+\begin{subequations}
+  \label{eq:FofV}
+\begin{align}
+  \edense^{n+1} =& \edense^n + \Delta \tau \,  K_{\eta\eta} \Pi^{\eta\eta}(V^{n+1}) \, ,   \\ \\
+  \pdense^{n+1} =& \pdense^n - \Delta \tau \, \partial_x  \tvisc^{xx} (V^{n+1}) \, .
+  \end{align}
+\end{subequations}
+% where $\mathcal M^x$ are the old momenta and the energy $E$ remains constant
+Here the viscous strain is spatially discretized.   We write variables halfway between the lattice points as $u_{i+}$  defined appropriately:
+  \st
+  u_{i+} \equiv  \frac{u_{i+1} + u_i}{2} \qquad 
+  u_{i-} \equiv \frac{u_{i} + u_{i-1}}{2} 
+  \stp
+
+
+  We introduce the \emph{discrete} dissipative function
+  \st
+  R \equiv \sum_{i} R_{i+1/2} = \sum \frac{1}{2}  
+\begin{pmatrix}
+  \frac{\beta_{x, i+1} - \beta_{x,i}}{\Delta x}  &   \frac{\beta^\tau_{i+1} + \beta^\tau_i }{2\tau}
+\end{pmatrix}
+ \begin{pmatrix}
+   \kappa^{xx}   &  \kappa^{x\eta} \\
+   \kappa^{\eta x}   &  \kappa^{\eta\eta}
+ \end{pmatrix}_{i+}
+\begin{pmatrix}
+  \frac{\beta_{x, i+1} - \beta_{x, i}}{\Delta x}  \\    \frac{\beta^\tau_{i+1} + \beta^{\tau}_i }{2\tau}
+\end{pmatrix}
+\stp
+Then 
+\st
+(\partial_x \tvisc^{xx})_i\equiv  \frac{\partial R }{\partial \beta_{x, i}}
+\stp
+and 
+\st
+(K_{\eta\eta} \tvisc^{\eta\eta})_i \equiv  
+\frac{\partial R }{\partial \beta_i^\tau} = 
+\stp
+With this definition we have  with a continuum formulation of the implicit updates:
+\st
+\sum_i \beta^\tau  \partial_\tau \edense   - \beta_{x} \,   \partial_\tau \pdense = \sum_i \beta^{\tau}  K_{\eta\eta} \Pi^{\eta\eta} + \beta_{x} \, \partial_x \Pi^{xx} =   \sum_i \beta^\tau \frac{\partial R}{\partial \beta^\tau} + \beta_x \frac{\partial R}{\partial\beta_x} = 2 R 
+\stp
+Explicitly
+  \begin{multline}
+  \label{eq:FofVdetail}
+  (\partial_x \tvisc^{xx})_i \equiv 
+  -\frac{\kappa^{xx}_{i+} }{(\Delta x)^2 }  (\beta_{x, i+1} - \beta_{x,i}) + 
+  \frac{\kappa^{xx}_{i-}}{ (\Delta x)^2}  (\beta_{x, i} - \beta_{x, i-1})   
+  - \frac{1}{\Delta x }  \frac{\beta_{i+}^\tau}{\tau} \kappa^{x\eta}_{i+}   
+  + \frac{1}{ \Delta x  }  \frac{\beta^\tau_{i-}}{\tau} \kappa^{x\eta}_{i-}   
+\end{multline}
+and 
+  \begin{multline}
+  \label{eq:FofVdetail2}
+  (K_{\eta\eta} \tvisc^{\eta\eta})_i \equiv 
+    \frac{1}{2 \Delta x \tau}  \, \kappa^{x\eta}_{i+}  (\beta_{x, i+1} - \beta_{x,i})  
+   + \frac{1}{2 \Delta x \tau}  \, \kappa^{x\eta}_{i-}  (\beta_{x, i} - \beta_{x, i-1})   
+   + \frac{\beta^\tau_{i+}}{2\tau^2} \, \kappa^{\eta\eta}_{i+} 
+   + \frac{\beta^\tau_{i-}}{2\tau^2}  \,\kappa^{\eta\eta}_{i-}
+\end{multline}
+
+We note that 
+\st
+\partial_x\Pi^{xx} = \frac{\partial R_{i+} }{\partial \beta_{x, i}} + \frac{\partial R_{i-} }{\partial \beta_{x, i}}  
+ = 
+  \frac{\partial R_{i+} }{\partial \beta_{x, i}} - \frac{\partial R_{i-} }{\partial \beta_{x, i-1}} =  
+ \frac{1}{\Delta x} \left(\Pi^{xx}_{i+} - \Pi^{xx}_{i-} \right)
+\stp
+ and 
+ \st
+ K_{\eta\eta} \Pi^{\eta\eta} =
+ \frac{\partial R_{i+} }{\partial \beta_i^\tau} + 
+ \frac{\partial R_{i-} }{\partial \beta_i^\tau}  
+ = 
+ \frac{\partial R_{i+} }{\partial \beta_i^\tau} + 
+ \frac{\partial R_{i-} }{\partial \beta_{i-1}^\tau} =
+ \frac{1}{2\tau} \left(\Pi^{\eta\eta} + \Pi^{\eta\eta}\right) 
+ \stp
+
+
+Schematically an implicit Euler update takes the form
+\st
+\label{eq:FofVschematic}
+   V^{n+1 } = V^n + \Delta t \, g(V^{n+1}) \, .
+\stp
+In general \Eq{eq:FofV} and its schematic counter part \eqref{eq:FofVschematic} must be solved by a Newton iterator. 
+Combining the explicit and implicit steps sequentially leads to a non-linear Euler IMEX scheme.
+Higher order non-linear IMEX schemes can be developed and are studied in \app{app:numericaldetails}.
+% In the body of the paper we will a linearized solver 
+% We will present 
+% some numerical results with fully non-linear implicit step in App.~\ref{app:numericaldetails}.
+
+  %For comparison
+%we used the third order {\rm ARK}(3) in the test
+
+
+A simpler alternative to a fully non-linear implicit step is to linearize the problem over a time interval $\Delta t$~\cite{Constantinescu}. In this approach we solve the linearized equation 
+\st
+\partial_t \, \delta V(t)  =   f(V^n)  +  g(V^n) +  J(V^{n}) \, \delta V\,.
+\stp
+Here $\delta V(t) = V(t) - V^n$ and $J(V^n) = \partial g/\partial V$ is a time-independent appoximate Jacobian matrix.  This leads to the update 
+\st
+V^{n+1}  = V^n +   \frac{\Delta t \, (f(V^n) + g(V^n)) }{1 - \Delta t J(V^n) }\,,
+\stp
+which means that the linear equations 
+\st
+(1 - \Delta t J(V^n)) \delta V  = \Delta t \, (f(V^n) + g(V^n)) \,,
+\stp
+should be solved for the update $\delta V$. 
+
+In the current context
+the linearized equations that evolved 
+implicitly over time interval $\Delta t$ 
+are
+% \begin{align}
+%   \begin{pmatrix} 
+%       \partial_t\ \delta\edense \\
+%     \partial_t\,  \delta\pdense  \end{pmatrix} 
+%  +  \begin{pmatrix}
+%    0 & 0 \\
+%    \partial_x\left[\kappa \, \chi^{-1}_{\scriptscriptstyle \pdense \edense }  \partial_x  \right] &  
+%   \partial_x(\kappa(V^n) \partial_x ) 
+%  \end{pmatrix}
+%  \begin{pmatrix}
+%    \delta \edense \\
+%    \delta \pdense 
+%  \end{pmatrix}
+% %   \partial_t
+% %     \delta \edense =&  - \partial_x \pdense \\ 
+% %   \partial_t\delta \pdense  + \partial_x \left( \kappa(V^n) \partial_x \delta
+% % \beta_{x} \right)=&  -\partial_x \tideal^{xx}(V^n) - \partial_x
+% % \tvisc^{xx}(V^n)\, ,
+% \end{align}
+\begin{align}
+ %  \left[\begin{pmatrix} 
+ %      \partial_t \\
+ %    \partial_t \end{pmatrix} 
+ % +  \begin{pmatrix}
+ %  0  & 0  \\
+ %  \partial_x(\kappa(V^n) \partial_x )&  
+ %  \partial_x(\kappa(V^n) \partial_x )& 
+ % \end{pmatrix}
+ % \rightk
+  \partial_t\, 
+  \delta \edense - K_{\eta\eta} \delta \Pi^{\eta\eta}(\beta) =& - \frac{(\edense + p(\beta)) }{\tau}   - \partial_x \pdense + K_{\eta\eta} \Pi^{\eta\eta}(V^n))\\ 
+  \partial_t\, \dpdense  + \partial_x (\delta \Pi^{xx}(\beta))
+=&  -\frac{\pdense}{\tau} -\partial_x \tideal^{xx}(V^n) - \partial_x \tvisc^{xx}(V^n)\, .
+\end{align}
+Here we defined 
+\st
+\partial_x (\delta \Pi^{xx}(\beta)) =  \mbox{{\rm Eq}.~\ref{eq:FofVdetail}  with $\beta_{\mu}$ replaced with  $\delta\beta_{\mu}$  }
+\stp
+and
+\st
+K_{\eta\eta} \delta \Pi^{\eta\eta}(\beta) =  \mbox{{\rm Eq}.~\ref{eq:FofVdetail2}  with $\beta_{\mu}$ replaced with  $\delta\beta_{\mu}$  }
+\stp
+
+When evaluating $\delta\beta_{\mu}$ we use
+\begin{align}
+  \delta \beta_{x, i} =& 
+(\chi_{\pdense \edense}^{-1})_i \; \delta \edense_i + 
+(\chi_{\pdense \pdense}^{-1})_i \; \delta \pdense_i  \\
+  \delta \beta^\tau_i =& 
+-(\chi_{\edense \edense}^{-1})_i \; \delta \edense_i  
+-(\chi_{\edense \pdense}^{-1})_i \; \delta \pdense_i 
+\end{align}
+Here $\chi^{-1}_{\mu\nu}$ is the static thermodynamic susceptibility matrix
+(see App.~\ref{app:dfdetails})
+%\cmtJF{Should we explain the difference between $\chi^{-1}_{\pdense\edense} $, $\chi^{-1}_{\pdense\pdense}$ and the formula below?}
+\begin{align}
+  \chi^{-1}_{\pdense\pdense} =& \left(\frac{\partial \beta_x}{\partial \pdense} \right)_\edense =  \frac{\gamma \beta}{e +p} \left( \frac{1 + 3c_s^2 v^2 }{1 - v^2 c_s^2}\right) \,  ,  \\
+  \chi^{-1}_{\pdense\edense} =& \left(\frac{\partial \beta_x}{\partial \edense} \right)_\pdense =  -\frac{\gamma \beta}{e +p} v_x \left( \frac{1 + 2 c_s^2  + c_s^2 v^2 }{1 - v^2 c_s^2}\right) \, , \\
+  \chi^{-1}_{\edense\edense} =& \left(\frac{\partial \beta_\tau}{\partial \edense} \right)_\pdense  = \frac{\gamma \beta}{e +p} \left( \frac{v^2 +  c_s^2  + 2 c_s^2 v^2 }{1 - v^2 c_s^2}\right) \, .
+\end{align}
+
+% We also have
+% \st
+% \beta_{i+}^\tau  = \chi^{-1}_{\edense \edense} \left(\frac{\edense_{i+1}  + \edense_{i} }{2} \right) 
+%  +  \chi^{-1}_{\edense \pdense} \left(\frac{\pdense_{i+1}  + \pdense_{i} }{2} \right) 
+% \stp
+ % This approach evolves the UV modes of the diffusive differential operator implicitly, while non-linearities in the IR are evolved explicity. In
+ % practice this means that each time steps involves solving a sparse set of linear equations.
+% In an Euler scheme we are solving
+% \st
+% \left({\mathbb I}  + \Delta t J(V^n) \right) \pdense^{n+1} = \pdense^n 
+% \stp
+We have found that the discretized linear equations are easily solved with just a few sweeps of Bi-Conjugate Stabilized
+algorithm (BiCStab) using a Jacobi
+pre-conditioner~\cite{trefethen1997numerical,press2007numerical,bueler2020petsc}.
+Other linear solvers such as GMRES~\cite{trefethen1997numerical} produced
+similar results. 
+
+After implementing the linearized implicit solver in {\tt PETSc}, we adopted the Extrapolated IMEX approach of \cite{Constantinescu} to achieve third order accuracy in the time evolution.
+
+\subsection{Prototype}
+
+We consider a Gaussian initital codition
+\st
+S(\tau_0, x) = \frac{S_0}{\tau_0} \exp(-x^2/2\sigma^2) + \delta 
+\stp
+where $S_0$ has units of entropy  per  area  per rapidity. 
+
+The knudsen number
+\st
+{\rm K}_L \equiv \frac{\eta}{s T \tau  c_s} 
+\stp
+The knudsen number in the radial direction is 
+\st
+{\rm K}_R \equiv \frac{\eta}{s T R  c_s} 
+\stp
+
+We have 
+\st
+{\rm K}_L =  0.138  \, \left(\frac{4\pi \eta/s}{1} \right) \left(\frac{1}{\tau_0 T_0 } \right)
+\stp
+
+Using the conformal invariance we can set $\tau_0=1.0\, {\rm fm}$ as a fixed value.  
+We take a gluon gas  $\nu = 16$
+\st
+e = C_e T^4 = \nu \frac{\pi^2}{30} T^4 \qquad s = \frac{4}{3} \frac{e}{T}  \qquad C_e = 5.26
+\stp
+We have
+\st
+s = \frac{e + p}{T} = \frac{4}{3} \frac{e}{T} \equiv C_s T^3   \qquad  C_s = 7.01839
+\stp
+The central energy density
+\st
+\frac{S_0}{\tau_0 } = C_s T_0^3
+\stp
+\st
+S_0 =  C_s \frac{(\tau_0 T_0)^3 }{\tau_0^2} = 7.01   \frac{1}{{\rm fm}^2}   \left(\frac{1 \, {\rm fm}}{\tau_0 }\right)^2 \, (\tau_0 T_0)^3
+\stp
+
+\subsection{Code rewrite }
+
+We use the difference structure stronngly
+\st
+R_{i+1/2} \equiv
+\begin{pmatrix}
+  \frac{\beta^\tau_{i+1} + \beta^\tau_i }{2\tau}
+  &   
+  \frac{\beta_{x, i+1} - \beta_{x,i}}{\Delta x}  
+\end{pmatrix}
+ \begin{pmatrix}
+   \kappa^{\eta \eta}   &  \kappa^{\eta x} \\
+   \kappa^{x \eta}   &  \kappa^{xx} 
+ \end{pmatrix}_{i+}
+\begin{pmatrix}
+  \frac{\beta_{x, i+1} - \beta_{x, i}}{\Delta x}  \\    
+  \frac{\beta^\tau_{i+1} + \beta^{\tau}_i }{2\tau}
+\end{pmatrix}
+\stp
+
+% The tensor
+% \st
+% \Delta \beta_I =\begin{pmatrix} 
+%   \beta_{i+1}^\tau +\beta_{i}^\tau  \\
+%   \beta_{i, x} - \beta_{x, i}  
+% \end{pmatrix}
+% \stp
+% We have the $2\times 4$ incidence matrix 
+% \st
+% S_{IA} = \begin{pmatrix}
+%   g^{\tau\tau}/2\tau   & 0   & g^{\tau\tau}/2\tau & 0  \\
+%   0   & 1/\Delta x   & 0 & -1/\Delta x
+% \end{pmatrix}
+%   \stp
+% So 
+% \st
+% \Delta \beta_I =  S_{I A} \beta_A
+% \stp
+% We have 
+% \st
+% R = \frac{1}{2} \beta_B \, ( S^t_{BJ} \, \kappa^{JI} \, S_{IA}) \beta_A
+% \stp
+% We have the contribution to the $B$ lattice site
+% \st
+%  \partial_t Q_B = U_B = S^t_{BJ}  \kappa^{JI} S_{IA} \beta_A
+% \stp
+% The measure
+% \st
+% \frac{\partial U_B}{\partial Q_C} = 
+% U_B = S^t_{BJ}  \kappa^{JI} S_{IA } \chi^{-1}_{AC}
+% \stp
+
+Let $\sigma$ denote the latttice sites $\sigma = i, i+1$.
+\begin{align}
+  \Kd(\sigma) =& \Delta_\tau  (1, 1)  \qquad \Delta_\tau = \frac{g^{\tau\tau}}{2\tau}\\
+  D_x(\sigma) =& \Delta_x (-1, 1) \qquad  \Delta_x = \frac{1}{\Delta x}
+\end{align}
+Then 
+\begin{align}
+  U_{\sigma}^\tau  =&  \Kd(\sigma) \kappa^{\eta\eta\eta\eta} \Kd(\sigma')\beta_\tau(\sigma') + \Kd(\sigma) \kappa^{\eta\eta xx} D_{x}(\sigma') \beta_x(\sigma') \\
+  U_{\sigma}^x  =&  D_x(\sigma) \kappa^{xx\eta\eta} \Kd(\sigma')\beta_\tau(\sigma') + D_x(\sigma) \kappa^{xx xx} D_{x} (\sigma') \beta_x(\sigma')
+\end{align}
+This has a natural extension to 2d 
+\begin{align}
+  U_{\sigma}^\tau  =&  \Kd(\sigma) \kappa^{\eta\eta\eta\eta} \Kd(\sigma')\beta_\tau(\sigma') 
+  +\Kd(\sigma) \kappa^{\eta\eta ij} D_{i}(\sigma') \beta_j(\sigma') \\
+  U_{\sigma}^i  =&  D_j(\sigma) \kappa^{ij\eta\eta} \Kd(\sigma')\beta_\tau(\sigma') + D_j(\sigma) \kappa^{ij lm} D_{l} (\sigma') \beta_m(\sigma')
+\end{align}
+In general then 
+\st
+\delta \beta_{\mu} = \chi^{-1}_{\mu\nu} \delta P^{\mu}
+\stp
+So
+\st
+(J_{\sigma\sigma'})^\tau_{\nu} = 
+D_{\tau}(\sigma) \kappa^{\tau\tau\tau\tau} D_{\tau}(\sigma') \chi_{\tau\nu}(\sigma')
++ D_\tau(\sigma) \kappa^{\tau\tau ij} D_{i}(\sigma') \chi_{j\nu}^{-1}(\sigma')
+\stp
+
+
+\section{Converting between Landau and Density frames}
+\label{app:dfdetails}
+
+We need to create a grid with the entries
+$e_L$,  $u^{i}_L$, $\pi^{ij}_L$,  $\tau^2 \pi^{\eta\eta}_L$. 
+Then 
+Then the stress tensor is
+\begin{align}
+    T^{ij} =& (e + p) u^i u^j + p \eta^{ij}   + \pi^{ij} \\
+    \tau^2 T^{\eta\eta} =&  p    + \tau^2\pi^{\eta\eta}
+\end{align}
+The root finding problem is then 
+\begin{enumerate}
+\item Specify  $u^i$ ,  $u^\tau = \sqrt{1 + u_iu^i}$. 
+\item Determine  $e$ from 
+\begin{align}
+    T^{ab}u_{b} = -e u^a
+\end{align}
+Here  $e = u_{a} T^{ab} u_b$.   So writing out the landau  constraint
+\begin{align}
+    M^i u_{\tau} + T^{ij} u_j + (E u_{\tau} u_{\tau} + 2 M^{m}u_{m } + u_lT^{lm} u_m) u^i = 0 
+\end{align}
+Symbollically we have 
+\begin{align}
+     F^i(u^j) = 0 
+\end{align}
+Using  $u_{\tau} = -\sqrt{1 + u_x u_x + u_y u_y}$ we differentiate 
+the above expression with mathematica to determine the Jacobian
+\begin{align}
+    \partial F^i /\partial u^j
+\end{align}
+Then the equation is easily solved using a root search with Petsc. 
+\end{enumerate}
+
+\subsection{Implementation} 
+We can extend the \verb|VischydroNode| class to include the  variables, $\pi^{ij}, \tau^2 \pi^{\eta\eta}$.  Then \verb|VischydroNode| will represent either a density frame or landau frame node. 
+
+Then we add functions \verb|get_stress(Tij, Tnn)|. The node class can be
+either a density frame or landau frame node. 
+The code is the same in both cases since 
+\begin{align}
+  T^{ij} =& (e + p) u^i u^j + p \eta^{ij}   + \pi^{ij} \\
+  \tau^2 T^{\eta\eta} =&  p    + \tau^2\pi^{\eta\eta}
+\end{align}
+But $e$, $p$, and $u^i$ are different in the two frames as is $\pi^{ij}$. 
+
+We also add a function \verb|vhnode_fill_landau_state(e_L, ui_L, pij_L, pinn_L)| which will fill the node variables from the landau frame variables.
+This function will solve the root finding problem above to determine $e$, $u^i$
+in the density frame.  Then it will compute $\pi^{ij}$ and $\tau^2
+\pi^{\eta\eta}$ in the density frame using. 
+
+Then we have to functions in the \verb|Vischydro| class, \verb|LFtoDF()| and \verb|DFtoLF()| which will loop over all the nodes and convert them from one grid to the other.  So the overall procedure is to maintain two grids, one in the landau frame and one in the density frame.  Before each import between {\tt Music} and {\tt ViscHydro} we convert to the appropriate frame.
+\begin{enumerate}
+\item To import from {\tt Music} to {\tt ViscHydro} we fill the landau frame grid from {\tt Music}  (by calling \verb|vhnode_fill_landau_state|) and then call \verb|LFtoDF()| to convert to the density frame grid.
+
+\item To export from {\tt ViscHydro} to {\tt Music} we call \verb|DFtoLF()| to convert to the landau frame grid and then export the landau frame grid to {\tt Music}, by calling \verb| vhnode_get_landau_state()|.
+\end{enumerate}
+
+The actual for \verb|LFtoDF| is to set to simply copy the node $\verb|VischydroNode|$ 
+of the Landau Grid to the Density Frame Grid.   Then to call $\verb|vhnode_findstate(eguess, vhnode)|$ for each density frame node.
+
+
+The \verb|DFtoLF| function will extract the stress from the density frame grid.
+using \verb|get_stress|, and \verb|get_charges| to get $T^{ij}$ and $\tau^2 T^{\eta\eta}$ and $E, M^i$. Then it will fill the landau frame auxiliaries by solving the root finding problem listed above, to find $u_L^i$, and $e_L$. 
+
+
+
+\section{Gubser comparision}
+
+Some references to the gubser  solution~\cite{Gubser:2010ze,Gubser:2010ui} annd ~\cite{Denicol:2014tha, Dash:2020zqx}
+
+\bibliographystyle{apsrev4-2}
+\bibliographystyle{utphys}
+\bibliography{refs2d}
+\end{document}
+% We write the index $A$ as $\sigma\mu$ where $\sigma$ loops over the lattice cites
+% \st
+% U_{\sigma \mu } = S^t_{\sigma \mu I}  \kappa^{\eta\eta \eta\eta} 
+% \stp
+
+% \st
+% S_{IA} \beta_A = D_{\mu_I}(\sigma) \beta_{\nu_I}(\sigma)
+% \stp
+% We take 
+% \st
+%  \chi^{-1}_{AC}  = \chi^{-1}_{\mu\mu'}(\sigma) \delta_{\sigma \sigma'}
+% \stp
+% Then 
+% \st
+% S_{IA } \chi^{-1}_{AC} = D_{\mu_I}(\sigma) \chi^{-1}_{\mu_I \mu'}(\sigma)
+% \stp
+% Then 
+% \st
+% S^t_{\sigma \mu J} \kappa^{JI} = D_{\nu}(\sigma) \kappa^{J_{\mu\nu} I}  
+% \stp
+
+
+%\bibliographystyle{apsrev4-2}
+%\bibliographystyle{utphys}
+%\bibliography{pv_ref}
+%\begin{thebibliography}{99} 
+%\input{numerics2.bbl}
+%\end{thebibliography}
+\end{document}
