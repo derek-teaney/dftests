@@ -12,7 +12,7 @@ def run_sample():
     This function demonstrates how to run the Gubser flow simulation using the gubser_kinetics module. It sets a sample value for tauHbyR, retrieves the initial state parameters, runs the simulation, and plots the temperature T as a function of rho. You can adjust the value of tauHbyR and the range of rho to explore different scenarios.
     """ 
 
-    tauHbyR = 0.5
+    tauHbyR = 1.0
 
     # get the intial state parameters for given tauHbyR and print them out
     QR, LambdaTR, fourpinbys, rho_start = gk.get_initial_state_params(tauHbyR, verbose=True)
@@ -23,12 +23,12 @@ def run_sample():
 
     # Choose where to plot the solution.  We will plot T(rho) for rho from -6 to 2.
     rho_eval = np.linspace(max(-6, rho_start), rho_stop, 500)
-    T =  gk.T_hat(solution.sol(rho_eval)[0])/LambdaTR**(2/3)
+    That =  gk.T_hat(solution.sol(rho_eval)[0])/LambdaTR**(2/3)
 
     # Plot the results. 
-    plt.plot(rho_eval, T)
+    plt.plot(rho_eval, That)
     plt.xlabel(r'$\rho$')
-    plt.ylabel(r'$T(\rho)/\Lambda_T^{2/3}$')
+    plt.ylabel(r'$\hat{T}(\rho)/\Lambda_T^{2/3}$')
     plt.title('Sample Gubser Flow Simulation')
     plt.show()
 
