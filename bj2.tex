@@ -62,6 +62,7 @@
 \def\dpdense{\delta\kern-0.08em M}
 \def\dbeta{\delta\kern-0.08em \beta}
 \def\CChi{ {\mathcal \chi}}
+\def\Kinf{\kappa}
 \def\HP{\hphantom{\alpha}} % horizontal
 \def\llangle{\left\langle}
 \def\rrangle{\right\rangle}
@@ -150,7 +151,7 @@ the numerical method in 1+1D for simplicity. With the right notation and concept
 Relative to our previous work, the main new ingredient is to maximally use notion of the dissipative function $R$~\cite{}, which is the positive definite quadratic form that appears in the entropy production.  We will see that 
 it is possible to write down the dissipative function in a discrete form, and that the viscous strains can be implemented by taking derivatives of this function at the discrete level.  This approach is very effective and leads to a delightfully stable numerical method.
 
-\subsection{Preliminaries and the dissipative function}
+\subsection{The equations of motion}
 
 Let's consider a special case of Bjorken Flow with a non-zero flow velocity and spatial dependence only 
 in the $x$ direction.
@@ -276,6 +277,7 @@ The determinant of the matrix is positive definite
 % \stp
 
 
+\subsection{Entropy production and the dissipative function}
 
 Using the equation of motion it is easy to evaluate entropy production. 
 The entropy density on a constant $\tau$ slice  is defined as in ideal hydrodynamics,  $S
@@ -656,6 +658,247 @@ inclined at an angle to the lattice axes.
 \subsection{Comparison to Gubser solution}
 
 Some references to the Gubser solution~\cite{Gubser:2010ze,Gubser:2010ui} and ~\cite{Denicol:2014tha, Dash:2020zqx}
+
+\subsubsection{Definitions}
+Take some initial temperature distribution at $\rho_S \rightarrow -\infty$ and evolve forward in $\rho$ using the equations of motion.  In gubser coordinates the initial time is $\rho_S$ and the initial distribution is given by
+\begin{equation}
+   f = e^{-\hat p^\rho/\hat{T}_S }
+\end{equation}
+After free streaming we have 
+% We use a vierbein setup
+% \begin{equation}
+%      \hat p^{a} = {\sf p}^I \hat{e}_I^{a} \, ,    
+% \end{equation}
+% Then 
+
+
+The initial yield of particles is: 
+\begin{equation}
+  (2\pi)^3 \frac{dN}{d^2 p_T dp_\eta \, d^2r  d\eta } =   \hat{T}_S \frac{p_T}{\pi Q(r)} K_1(p_T /Q(r))\,    2\pi \delta(p_{\eta})\, ,
+ =  \Kinf C_e \left( \frac{4p_T}{3 Q(r)} K_1(p_T /Q(r))\, \right)    2\pi \delta(p_{\eta})  \, ,
+\end{equation}
+
+
+
+Here  
+\begin{equation}
+  q= \frac{1}{R} 
+\end{equation}
+\begin{equation}
+  \boxed{
+  Q(r) = \frac{2 Q_1}{(1 + q^2 r^2)}   \qquad  Q_1= \hat{T}_S \cosh\rho_S
+  }
+\end{equation}
+Comparing gives 
+\begin{equation}
+\boxed{
+\hat{T}_S = \frac{4 \pi}{3} \, \Kinf C_e \rightarrow \frac{4 \Kinf}{\pi} \, .
+}
+\end{equation}
+where in the last step we used the value of $C_e$ for a classical single component gas, $C_e = 3/\pi^2$.
+
+Note then 
+ \begin{gather}
+ \int_0^\infty 2\pi r dr \, Q^2(r) = 4 \pi Q_1^2 R^2 \\
+ \qquad \int_0^\infty 2\pi r dr \, Q^3(r) = 4 \pi Q_1^3 R^2 \\
+ \qquad \int_0^\infty 2\pi r dr r^2 \, Q^3(r) = 4 \pi Q_1^3 R^5 \\
+\llangle r^2 \rrangle = \frac{\int_0^\infty 2\pi r dr r^2 Q^3(r)}{\int_0^\infty 2\pi r dr Q^3(r)} = R^2 \, .
+ \end{gather}
+The energy density at $\tau=0$ is then given by
+\begin{equation}
+\tau \epsilon(r) = \Kinf C_eQ^3(r) \, ,
+\end{equation}
+The particle yield at $\tau=0$ is given by
+\begin{eqnarray}
+  \tau n(r) = \Kinf C_e\, \frac{4}{3\pi} Q^2(r) \, .
+\end{eqnarray}
+
+
+Integrating over the transverse plane we have the transverse energy per unit rapidity
+\begin{equation}
+\frac{dE_\perp}{dy} = \frac{1}{(2\pi)^3} \int dp_{\eta} \int 2\pi p_T^2 dp_T \int (2\pi r) dr \,  \frac{dN}{d^2 p_T d^2r  dy dp_{\eta} } =  \Kinf C_e\,    (4\pi Q_1^3  R^2)
+\end{equation}
+
+If we compute the yield at $\tau=0$ we have
+\begin{equation}
+\frac{dN}{dy} = \frac{1}{(2\pi)^3} \int dp_{\eta} \int 2\pi p_T dp_T \int (2\pi r) dr \, \frac{dN}{d^2 p_T d^2r  dy dp_{\eta} } =  
+\Kinf C_e\, \frac{4}{3\pi}   \,   (4 \pi Q_1^2  R^2)
+\end{equation}
+  
+During a Bjorken expansion the system transitions from the free streaming regime to the hydrodynamic regime.  In free streaming the energy density is 
+\begin{equation}
+  \tau \epsilon(\tau, r) = \Kinf C_eQ^3(r) \, 
+\end{equation}
+\begin{equation}
+  \tau T^3(\tau,r)  = \Lambda^2(r)
+\end{equation}
+We will drop the $r$ dependendence  for the remainder of this discusison. 
+The relation between the energy density and the temperature is given by $\epsilon = C_e T^4$.  Then 
+\begin{equation}
+  \tau \epsilon(\tau, r) = C_e \tau T^4(\tau, r) = C_e \Lambda^3(r) (\tau \Lambda(r))^{-1/3}
+\end{equation}
+
+It is found that a natural scaling variable is 
+\begin{align}
+   w = \frac{\tau T}{(4\pi \eta/s)}  =  \left(\frac{\tau}{\tau_H}\right)^{2/3} = \chi (\tau/R)^{2/3} \, ,
+\end{align}
+The energy density 
+\begin{align}
+  \frac{\tau^{4/3} \epsilon(\tau) }{(\tau^{4/3} \epsilon(\tau))_{\rm hydro}} =   \mathcal E(w)
+\end{align}
+With limits 
+\begin{align}
+  \mathcal E(w) =& \begin{cases}
+      (\Kinf^2 w)^{4/9} & w \rightarrow 0 \\
+   1 - \frac{2}{3 \pi w} & w \rightarrow \infty 
+  \end{cases}
+\end{align}
+Here $\Kinf$ is just an order one constant that is determined by the microscopic theory.  For RTA kinetic theory $\Kinf = 1.10$. 
+In the literature $\Kinf^{-9/8} = C_{\infty} = 0.92$. 
+
+
+  
+We now will notate the radial dependence. We have the energy density at $r=R$ 
+which is notetated $\epsilon_1(\tau)$ which is 
+   \begin{align}
+   (\tau \epsilon)_{01}  =& \Kinf C_e \, Q_1^3  \rightarrow  C_e \hat{T}^4_S \frac{\pi x^3}{4} \\
+   (\tau n)_{01}  =& \Kinf C_e\,  \frac{4}{3\pi}\, Q_1^2 
+   \end{align}
+  Then we can evaluate 
+  \begin{equation}
+    \Lambda^2(r) =  {\mathcal C}_{\infty}^{3/4} (4\pi \eta/s)^{1/3} \frac{1}{C_e^{2/3}}  (\tau e(r))_0  =  (4\pi \eta/s)^{1/3} \left( \frac{\tau e(r)}{\Kinf C_e} \right)_0^{2/3} =  (4\pi \eta/s)^{1/3} Q^2(r)
+  \end{equation} 
+We then have 
+\begin{align}
+   \frac{\tau_H(r)}{R} \equiv   \frac{(4\pi \eta/s)^{3/2}}{\Lambda(r) R} \equiv \frac{1}{\chi^{3/2}(r)} = (4\pi \eta/s)^{4/3} \frac{1}{Q(r) R}   \propto  \frac{1 + q^2 r^2}{\hat{\gamma}^{4/3}} \, ,
+   %\frac{1}{\hat{\gamma}^{4/3}} \, .
+\end{align}
+
+
+Now let's make the connection to Kurkela et al's notation.  They define
+\begin{align}
+ \hat{\gamma} =& \frac{1}{5\eta/s} \, \left( \frac{R}{\pi C_e} \frac{
+ dE_\perp}{dy}  \right)^{1/4}  = \frac{4 \pi}{5} \left(4 \Kinf \right)^{1/4}
+ \left(\frac{\tau_H}{R} \right)^{3/4}_1\simeq  \frac{3.6}
+ { \left(\frac{\tau_H}{R} \right)^{3/4}_1 }
+\end{align}
+We can also define 
+\begin{align}
+  (\tau_H/R)_S^{-2}   \equiv&  \frac{1}{\pi R^2}\int 2\pi r dr \,  (\tau_H(r)/R)^{-2}  = 4 (\tau_H/R)_1^{-2} \\
+  (\tau_H/R)_E^{-3} \equiv&  \frac{1}{\pi R^2}\int 2\pi r dr \,  (\tau_H(r)/R)^{-3}  = 4 (\tau_H/R)_1^{-3}
+\end{align}
+ So 
+ \begin{align}
+ \left(\tau_{H}/R\right)_1 =& 2  \, (\tau_{H}/R)_S  \\
+  \left(\tau_{H}/R \right)_1 =& 4^{1/3} \, (\tau_H/R)_E \simeq 1.58 (\tau_H/R)_E \, . \\
+  \left(\tau_{H}/R \right)_1 = & 2 \, (\tau_H/R)_\infty   \\
+  \left(\tau_{H}/R \right)_1 = & 2 \, (\tau_H/R)_{r=0} \, .
+ \end{align}
+So 
+\begin{align}
+\hat{\gamma} =& \frac{4 \pi}{5}  \Kinf^{1/4}  \frac{1}{(\tau_H/R)_E^{3/4}}
+\end{align}
+
+%So
+%\begin{align}
+%\frac{\tau_H}{R} =& 
+%\frac{1}{\chi^{3/2}} = 0.63 \, \frac{1}{\chi_{DT}^{3/2}} = 0.63 \, \left(1.5874\right)^{3/2} \, \frac{1}{\chi_{AK}^{3/2}} = 1.26 \, \frac{1}{\hat{\gamma}_{AK}^{3/2}} \, .
+
+
+
+
+\subsubsection{Ideal Hydro} 
+
+We have 
+\begin{equation}
+  \hat{T}(\rho) = \frac{\hat{T}_0}{\cosh(\rho)} (\cosh\rho)^{1/3} \, .
+\end{equation}
+So 
+\begin{equation}
+  T(\tau, r) = \frac{1}{R^{2/3}} \frac{\hat{T}_0}{\tau^{1/3}} \left[ (1 + q^2 r^2)/2 \right]^{-2/3} \, .
+\end{equation}
+So 
+% T_1 is the energy density at $r=R$ for early times. 
+\begin{equation}
+   R T_1(\tau) = \hat{T}_0 \left( \frac{R}{\tau} \right)^{1/3}  = (\Lambda R)^{2/3} \left( \frac{R}{\tau} \right)^{2/3}
+\end{equation}
+So
+\begin{equation}
+\hat{T}_0 = (\Lambda R)^{2/3} \left(1 + \mathcal O(\chi^{-1}) \right)\, .
+\end{equation}
+
+\subsubsection{Viscous  Hydro}
+
+We have
+\begin{equation}
+  \eta = C_e \, T^3 H_0 = \frac{3}{4} C_sT^3 H_0  = \frac{3}{4} s H_0
+\end{equation}
+So
+\begin{equation}
+4\pi \eta/s = 3 \pi H_0 \, .
+\end{equation}
+Then in the Bjorken limit we have the expansion
+\begin{equation}
+   R T_1 (\tau)= (\Lambda R)^{2/3} \left( \frac{R}{\tau} \right)^{1/3} \left( 1 - \frac{1}{6\pi w} + \mathcal O(w^{-2}) \right) \, .
+\end{equation}
+
+Then at absolute leading order at early times we can relate the $w_1 \equiv w(r=R)$ paramater to the gubser parameters as follows 
+\begin{equation}
+  \frac{1}{w_1} = \frac{4\pi \eta/s}{\tau T_1(\tau)} = \frac{3\pi H_0}{\tau T_1(\tau)} = \frac{3\pi H_0}{(\Lambda R)^{2/3}}  \left(\frac{R}{\tau} \right)^{2/3} 
+  = \left(\frac{3\pi H_0}{\hat{T}_0} \right) \left(\frac{R}{\tau}\right)^{3/2} = \left( \frac{3\pi H_0}{{\hat T}_0} \right) g^{2/3} 
+\end{equation}
+where $g = -\sinh(\rho) \simeq \cosh(\rho) \simeq (R/\tau)$.
+
+So the oppacity is given by 
+\begin{equation}
+\frac{1}{\chi} = \left(\frac{3\pi H_0}{\hat T_0} \right)  \left(1 + \mathcal O(\chi^{-1}) \right) \, .
+\end{equation}
+
+The full gubser solution is parametrized
+with $g=-\sinh(\rho)$ and reads
+\begin{equation}
+  \hat{T}(\rho) = \frac{\hat{T}_0(\chi)} 
+   {(1 + g^2)^{1/3}} 
+  \left[ 1 + 
+ \frac{1}{3\pi \chi}  F_V (g) \right] \, , 
+\end{equation}
+and 
+\begin{equation}
+F_V(g)  =  \frac{g }{(1 + g^2)^{1/6} } \left(1 + (1 + g^2)^{1/6} \, _2F_1\left(\tfrac{1}{2},\tfrac{1}{6}; \tfrac{3}{2}; -g^2\right) \right) 
+\end{equation}
+This has  has a series expansion for $g \rightarrow \infty$ given by
+\begin{equation}
+F_V(g) = -\frac{g^{2/3}}{2}\left( 1 + \mathcal O(1/g^2)\right) +  C_1 
+\end{equation}
+where 
+\begin{equation}
+C_1 = - \frac{ \Gamma(3/2) \Gamma(-(1/3))}{\Gamma(1/6)}  \simeq 0.646777
+\end{equation}
+So taking the limit $g \rightarrow \infty$ we have only the first two terms
+Leading to the 
+\begin{equation}
+  \hat{T}(\rho) = \frac{\hat{T}_0(\chi)} 
+   {(1 + g^2)^{1/3}} 
+  \left[ \left(1 + \frac{C_1}{3\pi \chi} \right)  
+-  \frac{1}{6\pi \chi} g^{2/3}  \right] 
+\end{equation}
+This must match the Bjorken asymptotics 
+\st
+   R T_1 (\tau)= (\Lambda_1 R)^{2/3} \left( \frac{R}{\tau} \right)^{1/3} \left( 1 - \frac{1}{6\pi w} + \mathcal O(w^{-2}) \right) \, .
+\stp
+
+Then by definition of $\Lambda_1$
+\begin{equation}
+\hat{T}_0(\chi)\left(1 + \frac{C_1}{3\pi\chi} \right) = (\Lambda_1 R)^{2/3} \, .
+\end{equation}
+So 
+\begin{equation}
+  \hat{T}_0(\chi) = (\Lambda_1 R)^{2/3} \left(1 - \frac{C_1}{3\pi\chi} + \mathcal O(\chi^{-2}) \right) \, .
+\end{equation}
+
+\subsection{Free streaming limit}
+
+
 
 \subsection{Comparison to MUSIC for typical heavy ion initial conditions}
 
