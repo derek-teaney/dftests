@@ -1,35 +1,3 @@
-import numpy as np
-from scipy.integrate import solve_ivp
-from scipy import special
-import scienceplots
-import gubser_kinetics as gk
-
-import matplotlib.pyplot as plt
-plt.style.use(['science', 'notebook'])
-# =============================================================u
-
-def run_sample():
-    """Run a sample Gubser flow simulation and plot the results.  """ 
-
-    tauHbyR = 0.5
-
-    # get the intial state parameters for given tauHbyR and print them out
-    QR, LambdaTR, fourpinbys, rho_start = gk.get_initial_state_params(tauHbyR, verbose=True)
-
-    # run the code and get the solution for rho from -6 to 2
-    rho_stop = 4
-    solution = gk.run(tauHbyR=tauHbyR, rho_stop=rho_stop)
-
-    # Choose where to plot the solution.  We will plot T(rho) for rho from -6 to 2.
-    rho_eval = np.linspace(max(-6, rho_start), rho_stop, 500)
-    T =  gk.T_hat(solution.sol(rho_eval)[0])/LambdaTR**(2/3)
-
-    # Plot the results. 
-    plt.plot(rho_eval, T)
-    plt.xlabel(r'$\rho$')
-    plt.ylabel(r'$T(\rho)/\Lambda_T^{2/3}$')
-    plt.title('Sample Gubser Flow Simulation')
-    plt.show()
 
 def run_bjorken():
     """ Run gubser solution in the bjorken limit  where tauHbyR=0.0001 is very small. The goal here is to reproduce Fig. 1 of 1908.02866 
